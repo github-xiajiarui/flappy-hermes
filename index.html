@@ -8,7 +8,7 @@
 *{margin:0;padding:0;box-sizing:border-box}
 html,body{width:100%;height:100%;overflow:hidden;background:#1a1a2e;touch-action:none;-webkit-touch-callout:none;-webkit-user-select:none;user-select:none}
 #game{position:relative;width:100%;max-width:400px;height:100vh;height:100dvh;margin:0 auto;overflow:hidden}
-canvas{display:block;width:100%;height:100%;background:linear-gradient(180deg,#4dc9f6 0%,#87ceeb 60%,#f0e68c 85%,#228b22 100%)}
+canvas{display:block;width:100%;height:100%}
 #ui{position:absolute;top:0;left:0;width:100%;height:100%;display:flex;flex-direction:column;justify-content:center;align-items:center;pointer-events:none;transition:opacity .3s}
 #ui.hide{opacity:0}
 #ui h1{color:#fff;font-size:2rem;font-weight:800;text-shadow:2px 2px 0 rgba(0,0,0,.3);margin-bottom:4px}
@@ -102,6 +102,11 @@ function drawPipes(){for(const p of pipes)drawPipe(p.x,p.gapY)}
 
 // background
 function drawBg(){
+  // Sky gradient
+  const g=X.createLinearGradient(0,0,0,H);
+  g.addColorStop(0,'#4dc9f6');g.addColorStop(.6,'#87ceeb');g.addColorStop(.85,'#f0e68c');g.addColorStop(1,'#228b22');
+  X.fillStyle=g;X.fillRect(0,0,W,H);
+  // Clouds
   X.fillStyle='rgba(255,255,255,.25)';
   const off=(frame*.15)%(W+120);
   for(let i=0;i<3;i++){const cx=((i*160+40-off)%(W+200))-60,cy=30+i*25+Math.sin(i*2.3)*15;drawCloud(cx,cy,40+i*8)}

@@ -147,6 +147,12 @@ function update(){
   else if(state==='over'){updateP();bird.vy=Math.min(bird.vy+.3,10);bird.y+=bird.vy;if(bird.y>H+50)bird.y=H+50}
 }
 function draw(){
+  // Reset transform & clear FULL canvas in screen pixels
+  const d=window.devicePixelRatio||1;
+  X.setTransform(1,0,0,1,0,0);
+  X.clearRect(0,0,C.width,C.height);
+  X.setTransform(d,0,0,d,0,0);
+  // Draw
   drawBg();drawPipes();if(state==='over')drawP();bird.draw();if(state==='play')drawP();frame++
 }
 function loop(){update();draw();requestAnimationFrame(loop)}

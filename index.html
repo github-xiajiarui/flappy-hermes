@@ -502,8 +502,8 @@ function gameLoop() {
 
 // ---------- INPUT ----------
 function handleInput(e) {
+  if (state !== STATE.PLAYING) return;
   e.preventDefault();
-  if (state === STATE.MENU || state === STATE.GAMEOVER) return;
   bird.flap();
   // Particle burst on flap
   spawnParticles(bird.x - 15, bird.y + 2, 5, 'rgba(255,255,255,0.7)');
@@ -513,7 +513,11 @@ function handleInput(e) {
 wrapper.addEventListener('touchstart', handleInput, { passive: false });
 wrapper.addEventListener('mousedown', handleInput);
 
-startBtn.addEventListener('click', (e) => {
+startBtn.addEventListener('touchstart', (e) => {
+  e.stopPropagation();
+  startGame();
+}, { passive: false });
+startBtn.addEventListener('mousedown', (e) => {
   e.stopPropagation();
   startGame();
 });
